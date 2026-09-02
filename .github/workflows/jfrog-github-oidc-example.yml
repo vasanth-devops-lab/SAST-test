@@ -1,0 +1,27 @@
+name: "Setup JFrog CLI OIDC Example"
+
+on:
+  push:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v4
+        env:
+          JF_URL: https://trialvasanth.jfrog.io/
+        with:
+          oidc-provider-name: vasanthdevops2003git/SAST-test@github
+
+      - name: Run JFrog CLI
+        run: |
+          jf rt ping
